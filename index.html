@@ -1,48 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <link href='//fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="css/main.css">
-  <title>AJAX with JavaScript</title>
-  <script src="http://code.jquery.com/jquery-1.11.0.min.js" type="text/javascript" charset="utf-8"></script>
-  <script>
-      //create the request
-      var xhr = new XMLHttpRequest();
+    <meta charset="utf-8">
+    <link href='//fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/main.css">
+    <title>AJAX with JavaScript</title>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        //create the request
+        var xhr = new XMLHttpRequest();
 
-      //create the callback
-      xhr.onreadystatechange = function(){
-          if (xhr.readyState === 4){
-              document.getElementById('ajax').innerHTML = xhr.responseText;
-          }
-      };
+        //create the callback
+        xhr.onreadystatechange = function(){
+            if (xhr.readyState === 4 && xhr.status === 200){
+                document.getElementById('ajax').innerHTML = xhr.responseText;
+            }
+        };
 
-      //open a request
-      xhr.open('GET', 'sidebar.html');
+        //open a request
+        xhr.open('GET', 'sidebar.html');
 
-      //send the request
-      function sendAJAX(){
-          xhr.send();
-          $("#load").hide();
-      }
+        //send the request
+        function sendAJAX(){
+            //$('#ajax').load('sidebar.html');
+            //another way, using get
+            $.get('sidebar.html', function(response) {
+                $('#ajax').html(response);
+            });
+            $("#load").hide();
+        }
 
-  </script>
+    </script>
 </head>
 <body>
-  <div class="grid-container centered">
+<div class="grid-container centered">
     <div class="grid-100">
-      <div class="contained">
-        <div class="grid-100">
-          <div class="heading">
-            <h1>Bring on the AJAX</h1>
-            <button id="load" onclick="sendAJAX()">Bring it!</button>
-          </div>
-          <div id="ajax">
+        <div class="contained">
+            <div class="grid-100">
+                <div class="heading">
+                    <h1>Bring on the AJAX</h1>
+                    <button id="load" onclick="sendAJAX()">Bring it!</button>
+                </div>
+                <div id="ajax">
 
-          </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 </body>
 </html>
